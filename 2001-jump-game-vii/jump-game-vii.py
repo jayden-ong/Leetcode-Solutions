@@ -1,19 +1,16 @@
 class Solution:
     def canReach(self, s: str, minJump: int, maxJump: int) -> bool:
-        n = len(s)
-        dq = deque([0])
-        right = 0
-        
-        while dq:
-            ix = dq.popleft()
-            if s[ix] == '0':
-                if ix == n-1:
-                    return True
-                curleft = ix + minJump
-                curright = ix + maxJump
-                for j in range(max(right+1, curleft), min(curright+1, n)):
-                    dq.append(j)
-                right = curright
+        queue = deque([0])
+        end = 0
 
+        while queue:
+            i = queue.popleft()
+            if s[i] == "0":
+                if i == len(s) - 1:
+                    return True
+                
+                for j in range(max(i + minJump, end + 1), min(i + maxJump + 1, len(s))):
+                    queue.append(j)
+                end = i + maxJump
         return False
         
